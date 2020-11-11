@@ -1,0 +1,83 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Generale.Master.vb" Inherits="FORECAST.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    
+<meta charset="utf-8" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta content="FORECAST" name="MA Massimiliano Amendola" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+		<!-- App css -->
+		<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+		<link href="assets/css/app.min.css" rel="stylesheet" type="text/css"  />
+
+		<!-- icons -->
+		<link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+
+    </asp:ContentPlaceHolder>
+</head>
+<body class="loading" data-layout-mode="horizontal" data-layout='{"mode": "light", "width": "fluid", "menuPosition": "fixed", "topbar": {"color": "dark"}, "showRightSidebarOnPageLoad": true}'>
+     <form id="form1" runat="server">
+        <div id="wrapper">
+    <div class="navbar-custom">
+                <div class="container-fluid">
+    
+                    <ul class="list-unstyled topnav-menu float-right mb-0">
+                        <li class="dropdown notification-list">
+                            <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
+                                <i class="fe-settings noti-icon"></i>
+                            </a>
+                        </li>
+    
+                    </ul>
+
+                    <!-- LOGO -->
+                    <div class="logo-box">
+                       
+
+                        <a href="Ordini.aspx" class="logo logo-light text-center">
+                            <span class="logo-sm">
+                                <img src="assets/images/logosolo.png" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="assets/images/logo.png" alt="" height="40">
+                            </span>
+                        </a>
+                    </div>
+    
+                    <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+                        <li>
+                            <button class="button-menu-mobile waves-effect waves-light">
+                                <i class="fe-menu"></i>
+                            </button>
+                        </li>
+
+                       
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+    
+     
+    
+    
+  
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+
+         
+
+
+        </div>
+    </form>
+</body>
+</html>
