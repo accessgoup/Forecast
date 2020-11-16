@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Parameters>
+    <Inizio>01/01/2020</Inizio>
+    <Fine>01/01/2020</Fine>
+    <MaxValoreRank>500</MaxValoreRank>
+    <ValoreStepIncremento>100</ValoreStepIncremento>
+    <MaxAgenteRank>500</MaxAgenteRank>
+    <AgenteStepIncremento>100</AgenteStepIncremento>
+</Parameters>
+

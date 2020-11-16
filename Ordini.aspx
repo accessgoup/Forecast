@@ -92,17 +92,31 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <div class="table table-responsive">
-                                <asp:GridView ID="GridOrdini" runat="server" AutoGenerateColumns="False"
+                            
+                            <div class="form-inline">
+                                <div class="col-8"></div>
+                                <h6 class=" m-1">LEGENDA</h6>
+                                <div class="col-1 badge-success m-1">RANK CALCOLATO</div>
+                                <div class="col-1 badge-primary m-1">ANALISI PERIODO</div>
+                                <div class="col-1 badge-secondary m-1">ANALISI STORICA</div>
+                            </div>
+                            
+                                
+                            <div class="table table-responsive table-sm">
+                                <asp:GridView ID="GridOrdini" runat="server" AutoGenerateColumns="False" AllowSorting ="true"
                                     AllowPaging="True" AutoSizeColumnsMode="false" OnPageIndexChanging="GridOrdini_PageIndexChanging"
-                                    CssClass="table table-centered table-nowrap mb-0" AllowSorting="True">
+                                    CssClass="table table-centered table-nowrap mb-0" >
 
 
                                     <PagerStyle CssClass="pagination-ys" />
                                     <Columns>
-                                        <asp:TemplateField HeaderText="#" ItemStyle-Width="10 px">
+                                        <asp:TemplateField HeaderText="#ORD" >
                                             <ItemTemplate><%#Eval("Pos") %></ItemTemplate>
+                                            <ItemStyle Width="10 px" CssClass="bg-primary" ForeColor="White" />
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="#PREV" >
+                                            <ItemTemplate><%#Eval("PosPrev") %></ItemTemplate>
+                                            <ItemStyle Width="10 px" CssClass="bg-primary" ForeColor="White" />
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="CODICE" ItemStyle-Width="15 px">
                                             <ItemTemplate><%#Eval("CodiceCliente") %></ItemTemplate>
@@ -112,11 +126,14 @@
                                             <ItemTemplate><%#Eval("Cliente") %></ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="SCORE<br/>PREV" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                        <asp:TemplateField HeaderText="PREV" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("ScoreValorePreventivoPeriodo") %></ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="BONUS" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("Bonus") %></ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="AGENTE" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                            <ItemTemplate><%#Eval("BonusAgente") %></ItemTemplate>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField HeaderText="PREV" ItemStyle-Width="35 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
@@ -126,8 +143,8 @@
                                             <ItemTemplate><%#Eval("ImportoOrdinatoPeriodo", "{0:c}") %></ItemTemplate>
                                             <ItemStyle CssClass="bg-primary" ForeColor="White"></ItemStyle>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="MEDIA CONV<br/>PREV>ORD" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
-                                            <ItemTemplate><%#Eval("MediaTassoConversionePeriodo", "{0:#0}") %></ItemTemplate>
+                                        <asp:TemplateField HeaderText="CONV<br/>PR>OR" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
+                                            <ItemTemplate><%#Eval("MediaTassoConversionePeriodo", "{0:#0%}") %></ItemTemplate>
                                             <ItemStyle CssClass="bg-primary" ForeColor="White"></ItemStyle>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RICH" ItemStyle-Width="15 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White">
@@ -140,14 +157,22 @@
                                         <asp:TemplateField HeaderText="RIGHE<br/>PREV" ItemStyle-Width="15 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("RighePreventiviPeriodo") %></ItemTemplate>
                                         </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="% ORD" ItemStyle-Width="15 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White">
+                                            <ItemTemplate><%#Eval("PercOrdinato", "{0:#0.00}") %></ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="% ORD<br/>CORR" ItemStyle-Width="15 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White">
+                                            <ItemTemplate><%#Eval("PercOrdinatoCurr", "{0:#0.00}") %></ItemTemplate>
+                                        </asp:TemplateField>
+
+
                                         <asp:TemplateField HeaderText="PREV" ItemStyle-Width="40 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("ValorePreventivi", "{0:c}") %></ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="ORDINI" ItemStyle-Width="45 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("ImportoOrdinato", "{0:c}") %></ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="MEDIA CONV<br/>PREV>ORD" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
-                                            <ItemTemplate><%#Eval("MediaTassoConversione", "{0:#0}") %></ItemTemplate>
+                                        <asp:TemplateField HeaderText="CONV<br/>PR>OR" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
+                                            <ItemTemplate><%#Eval("MediaTassoConversione", "{0:#0%}") %></ItemTemplate>
                                             <ItemStyle CssClass="bg-secondary" ForeColor="White"></ItemStyle>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RICHE<br/>RICH" ItemStyle-Width="15 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White">
@@ -155,6 +180,13 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="RIGHE<br/>PREV" ItemStyle-Width="40 px" ItemStyle-CssClass="bg-secondary" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("RighePreventivi") %></ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="PREV<br/>PREC" ItemStyle-Width="35 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
+                                            <ItemTemplate><%#Eval("ValorePreventiviPeriodoAnnoPrec", "{0:c}") %></ItemTemplate>
+                                        </asp:TemplateField>
+                                         <asp:TemplateField HeaderText="ORDINI<br/>PREC" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
+                                            <ItemTemplate><%#Eval("ImportoOrdinatoPeriodoAnnoPrec", "{0:c}") %></ItemTemplate>
+                                            <ItemStyle CssClass="bg-primary" ForeColor="White"></ItemStyle>
                                         </asp:TemplateField>
 
                                         <asp:TemplateField HeaderText="AGENTE" ItemStyle-Width="50 px" ItemStyle-CssClass="bg-pink" ItemStyle-ForeColor="White">
@@ -215,6 +247,7 @@
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="Fine"></asp:TextBox>
                         </div>
+                        <hr />
                         <h6 class="font-weight-medium px-3 mt-2 text-uppercase">SCORE SU ORDINATO</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="RankOrdine"></asp:TextBox>
@@ -223,6 +256,17 @@
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="StepOrdine"></asp:TextBox>
                         </div>
+                        <hr />
+                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">SCORE SU AGENTE</h6>
+                        <div class="position-relative">
+                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="RankAgente"></asp:TextBox>
+                        </div>
+                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">STEP SU AGENTE</h6>
+                        <div class="position-relative">
+                            <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="stepAgente"></asp:TextBox>
+                        </div>
+
+                        <hr />
                         <asp:Button ID="btnExec" runat="server" Text="RIELABORA" CssClass="btn btn-block btn-primary mt-3" OnClick="btnExec_Click" />
                     </div>
                 </div>
@@ -299,6 +343,8 @@
 
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
+
+
 
 
 

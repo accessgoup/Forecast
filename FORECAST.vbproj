@@ -94,6 +94,7 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\DefaultParameters.xml" />
     <Content Include="assets\css\app-corporate-dark-rtl.css" />
     <Content Include="assets\css\app-corporate-dark-rtl.min.css" />
     <Content Include="assets\css\app-corporate-dark.css" />
@@ -1913,7 +1914,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="assets\libs\autonumeric\node_modules\jquery\dist\" />
     <Folder Include="assets\libs\autonumeric\node_modules\jquery\external\sizzle\dist\" />
     <Folder Include="assets\libs\autonumeric\node_modules\jquery\src\" />

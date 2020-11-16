@@ -131,6 +131,24 @@ Partial Public Class Ordini
     Protected WithEvents StepOrdine As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Controllo RankAgente.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents RankAgente As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Controllo stepAgente.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents stepAgente As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Controllo btnExec.
     '''</summary>
     '''<remarks>

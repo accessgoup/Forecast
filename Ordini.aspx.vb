@@ -27,6 +27,8 @@ Public Class Ordini
         Me.Fine.Text = DateTime.Now.ToString("yyyy-MM-dd")
         Me.RankOrdine.Text = 5000
         Me.StepOrdine.Text = 5
+        Me.RankAgente.Text = 500
+        Me.stepAgente.Text = 10
     End Sub
 
 
@@ -46,8 +48,8 @@ Public Class Ordini
             cmd.Parameters.AddWithValue("@StepRankValore", Me.StepOrdine.Text)
             cmd.Parameters.AddWithValue("@PremioPosValore", 5)
             cmd.Parameters.AddWithValue("@PremioPosLimiteTop", 5)
-            cmd.Parameters.AddWithValue("@TotRankAgente", 50)
-            cmd.Parameters.AddWithValue("@StepRankAgente", 1.5)
+            cmd.Parameters.AddWithValue("@TotRankAgente", Me.RankAgente.Text)
+            cmd.Parameters.AddWithValue("@StepRankAgente", Me.stepAgente.Text)
 
             adp.SelectCommand = cmd
             adp.Fill(dt)
@@ -139,16 +141,9 @@ Public Class Ordini
         adp.Fill(dt)
         cn.Close()
         If dt.Tables(0).Rows.Count > 0 Then
-
             Me.RepBonus.DataSource = dt
             Me.RepBonus.DataBind()
-
-            Me.GridBonus.DataSource = dt
-            Me.GridBonus.DataBind()
-
         End If
-
-
     End Sub
 
 
