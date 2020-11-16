@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" EnableEventValidation="false" MasterPageFile="~/Generale.Master" CodeBehind="Ordini.aspx.vb" Inherits="FORECAST.Ordini" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>FORECAST - ANALISI</title>
+
+    <style>
+        .Tabella2RigheAlternate tr:nth-child(4n+1), .Tabella2RigheAlternate tr:nth-child(4n+2) {background: #808080; color:white;}
+    </style>
     
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -104,21 +108,22 @@
                                 
                             <div class="table table-responsive table-sm">
                                 <asp:GridView ID="GridOrdini" runat="server" AutoGenerateColumns="False" AllowSorting ="true"
-                                    AllowPaging="True" AutoSizeColumnsMode="false" OnPageIndexChanging="GridOrdini_PageIndexChanging"
-                                    CssClass="table table-centered table-nowrap mb-0" >
+                                    AllowPaging="True" AutoSizeColumnsMode="false" 
+                                    OnSorting="TaskGridView_Sorting" OnPageIndexChanging="GridOrdini_PageIndexChanging"
+                                    CssClass="table table-centered table-nowrap mb-0"  >
 
 
                                     <PagerStyle CssClass="pagination-ys" />
                                     <Columns>
-                                        <asp:TemplateField HeaderText="#ORD" >
+                                        <asp:TemplateField HeaderText="#ORD" SortExpression="POS" >
                                             <ItemTemplate><%#Eval("Pos") %></ItemTemplate>
                                             <ItemStyle Width="10 px" CssClass="bg-primary" ForeColor="White" />
                                         </asp:TemplateField>
-                                         <asp:TemplateField HeaderText="#PREV" >
+                                         <asp:TemplateField HeaderText="#PREV" SortExpression="PosPrev">
                                             <ItemTemplate><%#Eval("PosPrev") %></ItemTemplate>
                                             <ItemStyle Width="10 px" CssClass="bg-primary" ForeColor="White" />
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="CODICE" ItemStyle-Width="15 px">
+                                        <asp:TemplateField HeaderText="CODICE" SortExpression="CodiceCliente" ItemStyle-Width="15 px">
                                             <ItemTemplate><%#Eval("CodiceCliente") %></ItemTemplate>
                                             <ItemStyle Width="10px" />
                                         </asp:TemplateField>
@@ -126,17 +131,17 @@
                                             <ItemTemplate><%#Eval("Cliente") %></ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="PREV" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                        <asp:TemplateField HeaderText="PREV" SortExpression="ScoreValorePreventivoPeriodo" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("ScoreValorePreventivoPeriodo") %></ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="BONUS" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                        <asp:TemplateField HeaderText="BONUS" SortExpression="Bonus" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("Bonus") %></ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="AGENTE" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                        <asp:TemplateField HeaderText="AGENTE" SortExpression="BonusAgente" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("BonusAgente") %></ItemTemplate>
                                         </asp:TemplateField>
 
-                                        <asp:TemplateField HeaderText="PREV" ItemStyle-Width="35 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
+                                        <asp:TemplateField HeaderText="PREV"  ItemStyle-Width="35 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
                                             <ItemTemplate><%#Eval("ValorePreventiviPeriodo", "{0:c}") %></ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="VALORE<br/>ORDINI" ItemStyle-Width="10 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
@@ -280,6 +285,16 @@
                     </div>
                     <div class="form-inline">
                         <div class="position-relative pl-3">
+                            <asp:TextBox ID="txtDa" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="position-relative my-2 pl-3">
+                            <asp:TextBox ID="txtA" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+
+
+                    <div class="form-inline">
+                        <div class="position-relative pl-3">
                             <asp:TextBox ID="txtBonus" runat="server" Width="100 px" CssClass="form-control"></asp:TextBox>
                         </div>
                         <div class="position-relative pl-3">
@@ -292,23 +307,34 @@
                             <ContentTemplate>
                                 <asp:Repeater ID="RepBonus" runat="server">
                                     <HeaderTemplate>
-                                        <table class="table table-responsive table-sm table-striped mt-1">
+                                        <table class="table table-responsive table-sm Tabella2RigheAlternate mt-1">
                                     </HeaderTemplate>
 
                                     <ItemTemplate>
                                         <tr>
-                                            <td style="width=60%">
+                                            <td colspan="2" style="width: 60%">
                                                 <%# DataBinder.Eval(Container.DataItem, "Cliente") %> 
                                             </td>
 
-                                            <td style="width=20%">
+                                            <td style="width: 20%">
                                                 <%# DataBinder.Eval(Container.DataItem, "Bonus") %> 
                                             </td>
-
-                                            <td>
-                                                <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' CssClass="btn btn-danger" Text="X" /></td>
-
+                                            
                                         </tr>
+                                        <tr>
+                                            <td><small>
+                                                <%# DataBinder.Eval(Container.DataItem, "Da") %></small>
+                                            </td>
+
+                                            <td><small>
+                                                <%# DataBinder.Eval(Container.DataItem, "A") %> 
+                                            </td></small>
+                                         <td>
+                                            <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' CssClass="btn btn-danger" Text="X" /></td>   
+                                        </tr>
+                                       
+
+
                                     </ItemTemplate>
 
                                     <FooterTemplate>

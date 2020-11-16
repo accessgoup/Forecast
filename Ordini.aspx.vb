@@ -56,7 +56,10 @@ Public Class Ordini
             cn.Close()
 
             With Me.GridOrdini
-
+                If String.IsNullOrEmpty(Session("TaskTable")) Then
+                    Session("TaskTable") = "CLIENTE"
+                End If
+                dt.DefaultView.Sort = Session("TaskTable")
 
                 If dt.Rows.Count > 0 Then
                     Dim s As Object
@@ -135,7 +138,7 @@ Public Class Ordini
 
         GetConn("cs")
 
-        cmd = New SqlCommand("SELECT PeopleID ID,Custom06 Bonus, cf.Cd_CF, cf.Descrizione As Cliente FROM [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] Pf INNER JOIN [PDB_FITAVATRADING].[dbo].[People] P ON pf.PeopleID=p.ID INNER JOIN ADB_FITAVATRADING.dbo.cf ON p.Code = cf.Cd_CF WHERE Custom06<>'' ORDER BY Descrizione", cn)
+        cmd = New SqlCommand("SELECT PeopleID ID,Custom06 Bonus, cf.Cd_CF, cf.Descrizione As Cliente,  convert(varchar, Custom07, 3) Da,  convert(varchar, Custom08, 3)  A FROM [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] Pf INNER JOIN [PDB_FITAVATRADING].[dbo].[People] P ON pf.PeopleID=p.ID INNER JOIN ADB_FITAVATRADING.dbo.cf ON p.Code = cf.Cd_CF WHERE Custom06<>'' ORDER BY Descrizione", cn)
 
         adp.SelectCommand = cmd
         adp.Fill(dt)
@@ -173,9 +176,12 @@ Public Class Ordini
 
             GetConn("p")
 
-            cmd = New SqlCommand("UPDATE PeopleCustomFields SET Custom06=@bonus WHERE PeopleID=(SELECT ID FROM People WHERE Code=@code)", cn)
+            cmd = New SqlCommand("UPDATE PeopleCustomFields SET Custom06=@bonus,Custom07=@Da, Custom08=@A WHERE PeopleID=(SELECT ID FROM People WHERE Code=@code)", cn)
             cmd.Parameters.AddWithValue("bonus", Me.txtBonus.Text)
             cmd.Parameters.AddWithValue("Code", Me.ddCustomerList.SelectedItem.Value)
+            cmd.Parameters.AddWithValue("Da", Me.txtDa.Text)
+            cmd.Parameters.AddWithValue("A", Me.txtA.Text)
+
             cmd.ExecuteNonQuery()
             ListCustomerBonus()
             Me.txtBonus.Text = ""
@@ -183,5 +189,13 @@ Public Class Ordini
         End If
     End Sub
 
+    Private Sub GridOrdini_Sorting(sender As Object, e As GridViewSortEventArgs) Handles GridOrdini.Sorting
+
+    End Sub
+
+    Protected Sub TaskGridView_Sorting(ByVal sender As Object, ByVal e As GridViewSortEventArgs)
+        Session("TaskTable") = e.SortExpression
+        LoadData()
+    End Sub
 
 End Class

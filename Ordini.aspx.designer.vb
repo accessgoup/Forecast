@@ -167,6 +167,24 @@ Partial Public Class Ordini
     Protected WithEvents ddCustomerList As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''Controllo txtDa.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents txtDa As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''Controllo txtA.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents txtA As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Controllo txtBonus.
     '''</summary>
     '''<remarks>
