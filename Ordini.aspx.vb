@@ -56,9 +56,12 @@ Public Class Ordini
             cn.Close()
 
             With Me.GridOrdini
-                If String.IsNullOrEmpty(Session("TaskTable")) Then
-                    Session("TaskTable") = "CLIENTE"
+                If Not String.IsNullOrEmpty(Me.txtFilter.Text) Then
+                    dt.DefaultView.RowFilter = String.Format("Cliente LIKE '%{0}%'", Me.txtFilter.Text)
+
                 End If
+                If String.IsNullOrEmpty(Session("TaskTable")) Then Session("TaskTable") = "CLIENTE"
+
                 dt.DefaultView.Sort = Session("TaskTable")
 
                 If dt.Rows.Count > 0 Then

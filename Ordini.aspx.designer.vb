@@ -149,6 +149,15 @@ Partial Public Class Ordini
     Protected WithEvents stepAgente As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Controllo txtFilter.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents txtFilter As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Controllo btnExec.
     '''</summary>
     '''<remarks>

@@ -243,6 +243,8 @@
             </ul>
             <div class="tab-content pt-0">
                 <div class="tab-pane active" id="settings-tab" role="tabpanel">
+
+                    
                     <div class="form-group p-3">
                         <h6 class="font-weight-medium px-3 mt-2 text-uppercase">INIZIO</h6>
                         <div class="position-relative">
@@ -272,6 +274,11 @@
                         </div>
 
                         <hr />
+                        <div class="form-inline">
+                            <asp:Label runat="server" CssClass="forma-control m-1">FILTRO CODICE O NOME CLIENTE</asp:Label>
+                            <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control"></asp:TextBox>
+
+                        </div>
                         <asp:Button ID="btnExec" runat="server" Text="RIELABORA" CssClass="btn btn-block btn-primary mt-3" OnClick="btnExec_Click" />
                     </div>
                 </div>
