@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Dashboard.aspx.vb" Inherits="FORECAST.Dashboard" %>
 
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,7 +32,14 @@
                     <div class="card-body">
                         <h4 class="header-title">Multiple Statistics</h4>
 
-                       <canvas id="myChart" width="400" height="400"></canvas>
+                        <asp:Chart ID="Chart1" runat="server">
+                            <Series>
+                                <asp:Series Name="Series1"></asp:Series>
+                            </Series>
+                            <ChartAreas>
+                                <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
+                            </ChartAreas>
+                        </asp:Chart>
                     </div>
                 </div>
                 <!-- end card -->
@@ -41,56 +50,42 @@
             
         </div>
         
-        
-
+        <asp:HiddenField ID="hfdata" runat="server"></asp:HiddenField>
+        <asp:HiddenField ID="hflabel" runat="server"></asp:HiddenField>
 
     </form>
         
-     <!-- flot-charts js -->
+    <script type="application/javascript" src="awesomechart.js"></script>
+
+  <script type="application/javascript">
+    function drawMyChart() {
+      if (!!document.createElement('canvas').getContext) { //check that the canvas
+        // element is supported
+        var mychart = new AwesomeChart('canvas1');
+        mychart.title = "Product Sales - 2010";
+        mychart.data = "<%=hfdata.Value%>";
+        mychart.labels = "<%=hfdata.Value%>"
+        mychart.draw();
+      }
+    }
+
+    window.onload = drawMyChart;
+  </script>
+  <script src="awesomecharts.js"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
       
 
-    <script src="https://cdnjs.com/libraries/Chart.js"></script>
-
-
-    <script>
-        var ctx = document.getElementById('myChart');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
+   
     
         <script src="assets/js/vendor.min.js"></script>
         <script src="assets/js/app.min.js"></script>

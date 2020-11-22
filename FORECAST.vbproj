@@ -58,6 +58,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.DataVisualization" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web.DynamicData" />
@@ -1650,6 +1651,7 @@
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
     <Content Include="Ordini.aspx" />
+    <Content Include="Settings.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1659,7 +1661,7 @@
     </Compile>
     <Compile Include="Dashboard.aspx.vb">
       <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1669,7 +1671,7 @@
     </Compile>
     <Compile Include="Index.aspx.vb">
       <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -1702,6 +1704,13 @@
     </Compile>
     <Compile Include="Ordini.aspx.vb">
       <DependentUpon>Ordini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Settings.aspx.designer.vb">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.aspx.vb">
+      <DependentUpon>Settings.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>

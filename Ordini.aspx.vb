@@ -16,7 +16,7 @@ Public Class Ordini
         If Not IsPostBack() Then
             SetParameters()
             FillDropClienti()
-
+            LoadKPI()
         End If
         ListCustomerBonus()
     End Sub
@@ -29,66 +29,123 @@ Public Class Ordini
         Me.StepOrdine.Text = 5
         Me.RankAgente.Text = 500
         Me.stepAgente.Text = 10
+        Me.txtLimitRows.Text = 100
     End Sub
 
 
-    Sub LoadData()
+    Sub LoadData(t As Integer)
 
         Dim adp As New SqlDataAdapter()
         Dim dt As DataTable = New DataTable
+
         Try
+
             GetConn("cs")
 
-            cmd = New SqlCommand("spr_RankOrdini_v2", cn)
+            cmd = New SqlCommand("forecast_RankOrdini_v3", cn)
 
             cmd.CommandType = CommandType.StoredProcedure
-            cmd.Parameters.AddWithValue("@dal", Me.Inizio.Text)
-            cmd.Parameters.AddWithValue("@al", Me.Fine.Text)
-            cmd.Parameters.AddWithValue("@TotRankValore", Me.RankOrdine.Text)
-            cmd.Parameters.AddWithValue("@StepRankValore", Me.StepOrdine.Text)
-            cmd.Parameters.AddWithValue("@PremioPosValore", 5)
-            cmd.Parameters.AddWithValue("@PremioPosLimiteTop", 5)
-            cmd.Parameters.AddWithValue("@TotRankAgente", Me.RankAgente.Text)
-            cmd.Parameters.AddWithValue("@StepRankAgente", Me.stepAgente.Text)
+            cmd.Parameters.Clear()
+            cmd.Parameters.Add("@top", SqlDbType.VarChar).Value = Me.txtLimitRows.Text
+            cmd.Parameters.Add("@Tipo", SqlDbType.Int).Value = t
+
+            cmd.Parameters.Add("@Dal", SqlDbType.Date).Value = Me.Inizio.Text
+            cmd.Parameters.Add("@Al", SqlDbType.Date).Value = Me.Fine.Text
+
+            cmd.Parameters.Add("@TotRankValore", SqlDbType.Int).Value = Me.RankOrdine.Text
+            cmd.Parameters.Add("@StepRankValore", SqlDbType.Int).Value = Me.StepOrdine.Text
+            cmd.Parameters.Add("@filter", SqlDbType.NVarChar).Value = Me.txtFilter.Text
+
+            'cmd.Parameters.AddWithValue("@TotRankAgente", Me.RankAgente.Text)
+            'cmd.Parameters.AddWithValue("@StepRankAgente", Me.stepAgente.Text)
+
 
             adp.SelectCommand = cmd
-            adp.Fill(dt)
+            If t = 1 Then
+                cmd.ExecuteNonQuery()
+            Else
+                adp.Fill(dt)
+            End If
+
             cn.Close()
 
-            With Me.GridOrdini
-                If Not String.IsNullOrEmpty(Me.txtFilter.Text) Then
-                    dt.DefaultView.RowFilter = String.Format("Cliente LIKE '%{0}%'", Me.txtFilter.Text)
-
-                End If
+                With Me.GridOrdini
+                'If Not String.IsNullOrEmpty(Me.txtFilter.Text) Then
+                'dt.DefaultView.RowFilter = String.Format("Cliente LIKE '%{0}%' OR CodiceCliente LIKE '%{0}%'", Me.txtFilter.Text)
+                'End If
                 If String.IsNullOrEmpty(Session("TaskTable")) Then Session("TaskTable") = "CLIENTE"
 
-                dt.DefaultView.Sort = Session("TaskTable")
+                    dt.DefaultView.Sort = Session("TaskTable")
 
+                    If dt.Rows.Count > 0 Then
+                        Dim s As Object
+                        s = dt.Compute("SUM(ValorePreventiviPeriodo)", String.Empty)
+                        litValorePreventivo.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
+                        s = dt.Compute("SUM(ValorePreventiviPeriodoAnnoPrec)", String.Empty)
+                        litValorePreventivoAnnoPrec.Text = "ANNO PRECEDENTE " + String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
+
+                        s = dt.Compute("SUM(RichiestePeriodo)", String.Empty)
+                        litRichiestePeriodo.Text = s.ToString
+                        s = dt.Compute("SUM(RighePreventiviPeriodo)", String.Empty)
+                        LitNumeroPreventivi.Text = "TOTALE RIGHE PREVENTIVI " + s.ToString
+
+                        s = dt.Compute("SUM(ImportoOrdinatoPeriodo)", String.Empty)
+                        Me.LitOrdiniPeriodo.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
+                        s = dt.Compute("SUM(ImportoOrdinato)", String.Empty)
+                        LitOrdini.Text = "TOTALE ORDINATO " + String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
+
+                        s = dt.Compute("AVG(MediaTassoConversionePeriodo)", String.Empty)
+                        LitMediaConversionePeriodo.Text = String.Format("{0:0.00}", s) + "%"
+                        s = dt.Compute("AVG(MediaTassoConversione)", String.Empty)
+                        LitMediaConversione.Text = "MEDA TASSO CONVERSIONE " + String.Format("{0:0.00}", s) + "%"
+
+
+                        Me.GridOrdini.DataSource = dt
+                        Me.GridOrdini.DataBind()
+                    Else
+
+                    End If
+                End With
+
+        Catch ex As Exception
+                MsgBox(ex.Message.ToString)
+                'Response.Write("Oops!! following error occured: " + ex.Message.ToString)
+            Finally
+                ds.Clear()
+            ds.Dispose()
+            adp.Dispose()
+        End Try
+
+    End Sub
+
+    Sub LoadKPI()
+        Dim adp As New SqlDataAdapter()
+        Dim dt As DataTable = New DataTable
+
+        Try
+
+            GetConn("cs")
+
+            cmd = New SqlCommand("Forecast_KPI", cn)
+
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.Parameters.Clear()
+            cmd.Parameters.Add("@Tipo", SqlDbType.Int).Value = 1
+
+            cmd.Parameters.Add("@Inizio", SqlDbType.Date).Value = Me.Inizio.Text
+            cmd.Parameters.Add("@Fine", SqlDbType.Date).Value = Me.Fine.Text
+
+            adp.SelectCommand = cmd
+
+            adp.Fill(dt)
+
+            cn.Close()
+
+            With Me.RepKPI
                 If dt.Rows.Count > 0 Then
                     Dim s As Object
-                    s = dt.Compute("SUM(ValorePreventiviPeriodo)", String.Empty)
-                    litValorePreventivo.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
-                    s = dt.Compute("SUM(ValorePreventiviPeriodoAnnoPrec)", String.Empty)
-                    litValorePreventivoAnnoPrec.Text = "ANNO PRECEDENTE " + String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
-
-                    s = dt.Compute("SUM(RichiestePeriodo)", String.Empty)
-                    litRichiestePeriodo.Text = s.ToString
-                    s = dt.Compute("SUM(RighePreventiviPeriodo)", String.Empty)
-                    LitNumeroPreventivi.Text = "TOTALE RIGHE PREVENTIVI " + s.ToString
-
-                    s = dt.Compute("SUM(ImportoOrdinatoPeriodo)", String.Empty)
-                    Me.LitOrdiniPeriodo.Text = String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
-                    s = dt.Compute("SUM(ImportoOrdinato)", String.Empty)
-                    LitOrdini.Text = "TOTALE ORDINATO " + String.Format(Globalization.CultureInfo.CurrentCulture, "{0:C2}", s)
-
-                    s = dt.Compute("AVG(MediaTassoConversionePeriodo)", String.Empty)
-                    LitMediaConversionePeriodo.Text = String.Format("{0:0.00}", s) + "%"
-                    s = dt.Compute("AVG(MediaTassoConversione)", String.Empty)
-                    LitMediaConversione.Text = "MEDA TASSO CONVERSIONE " + String.Format("{0:0.00}", s) + "%"
-
-
-                    Me.GridOrdini.DataSource = dt
-                    Me.GridOrdini.DataBind()
+                    Me.RepKPI.DataSource = dt
+                    Me.RepKPI.DataBind()
                 Else
 
                 End If
@@ -105,8 +162,13 @@ Public Class Ordini
 
     End Sub
 
+
     Protected Sub btnExec_Click(sender As Object, e As EventArgs)
-        LoadData()
+        If sender.TEXT = "RIELABORA" Then
+            LoadData(0)
+        Else
+            LoadData(1)
+        End If
     End Sub
 
     Sub FillDropClienti()
@@ -157,7 +219,7 @@ Public Class Ordini
 
     Protected Sub GridOrdini_PageIndexChanging(sender As Object, e As GridViewPageEventArgs)
         GridOrdini.PageIndex = e.NewPageIndex
-        LoadData()
+        LoadData(0)
     End Sub
 
     Private Sub RepBonus_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles RepBonus.ItemCommand
@@ -198,7 +260,7 @@ Public Class Ordini
 
     Protected Sub TaskGridView_Sorting(ByVal sender As Object, ByVal e As GridViewSortEventArgs)
         Session("TaskTable") = e.SortExpression
-        LoadData()
+        LoadData(0)
     End Sub
 
 End Class

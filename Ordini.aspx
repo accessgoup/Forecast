@@ -4,6 +4,7 @@
 
     <style>
         .Tabella2RigheAlternate tr:nth-child(4n+1), .Tabella2RigheAlternate tr:nth-child(4n+2) {background: #808080; color:white;}
+
     </style>
     
 </asp:Content>
@@ -137,9 +138,9 @@
                                         <asp:TemplateField HeaderText="BONUS" SortExpression="Bonus" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("Bonus") %></ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:TemplateField HeaderText="AGENTE" SortExpression="BonusAgente" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
+                                       <%-- <asp:TemplateField HeaderText="AGENTE" SortExpression="BonusAgente" ItemStyle-Width="5 px" ItemStyle-CssClass="bg-success" ItemStyle-ForeColor="White">
                                             <ItemTemplate><%#Eval("BonusAgente") %></ItemTemplate>
-                                        </asp:TemplateField>
+                                        </asp:TemplateField>--%>
 
                                         <asp:TemplateField HeaderText="PREV"  ItemStyle-Width="35 px" ItemStyle-CssClass="bg-primary" ItemStyle-ForeColor="White" ItemStyle-Font-Bold="true">
                                             <ItemTemplate><%#Eval("ValorePreventiviPeriodo", "{0:c}") %></ItemTemplate>
@@ -239,47 +240,55 @@
                         <i class="mdi mdi-format-list-checkbox d-block font-22 my-1"></i>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link py-2" data-toggle="tab" href="#kpi-tab" role="tab">
+                        <i class="mdi mdi-apache-kafka d-block font-22 my-1"></i>
+                    </a>
+                </li>
+
                 
             </ul>
             <div class="tab-content pt-0">
                 <div class="tab-pane active" id="settings-tab" role="tabpanel">
-
                     
                     <div class="form-group p-3">
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">INIZIO</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">INIZIO</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="Inizio"></asp:TextBox>
                         </div>
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">FINE</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">FINE</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Date" ID="Fine"></asp:TextBox>
                         </div>
                         <hr />
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">SCORE SU ORDINATO</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">SCORE SU ORDINATO</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="RankOrdine"></asp:TextBox>
                         </div>
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">STEP SU ORDINATO</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">STEP SU ORDINATO</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="StepOrdine"></asp:TextBox>
                         </div>
                         <hr />
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">SCORE SU AGENTE</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">SCORE SU AGENTE</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="RankAgente"></asp:TextBox>
                         </div>
-                        <h6 class="font-weight-medium px-3 mt-2 text-uppercase">STEP SU AGENTE</h6>
+                        <h6 class="font-weight-medium px-3 mt-1 text-uppercase">STEP SU AGENTE</h6>
                         <div class="position-relative">
                             <asp:TextBox runat="server" CssClass="form-control" TextMode="Number" ID="stepAgente"></asp:TextBox>
                         </div>
-
                         <hr />
                         <div class="form-inline">
-                            <asp:Label runat="server" CssClass="forma-control m-1">FILTRO CODICE O NOME CLIENTE</asp:Label>
+                            <asp:Label runat="server" CssClass="forma-control">FILTRO CODICE O NOME CLIENTE</asp:Label>
                             <asp:TextBox ID="txtFilter" runat="server" CssClass="form-control"></asp:TextBox>
-
                         </div>
-                        <asp:Button ID="btnExec" runat="server" Text="RIELABORA" CssClass="btn btn-block btn-primary mt-3" OnClick="btnExec_Click" />
+                        <div class="form-inline">
+                            <asp:Label runat="server" CssClass="forma-control m-1">LIMITE POSIZIONE </asp:Label>
+                            <asp:TextBox ID="txtLimitRows" runat="server" TextMode="Number"  ToolTip="METTI 0 SE VUOI TUTTI" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <asp:Button ID="btnExec" runat="server" Text="RIELABORA" CssClass="btn btn-block btn-primary mt-1" OnClick="btnExec_Click" />
+                        <asp:Button ID="btnUpdateSP" runat="server" Text="AGGIORNA RANK" CssClass="btn btn-block btn-primary mt-1" OnClick="btnExec_Click" />
                     </div>
                 </div>
                 <div class="tab-pane" id="bonus-tab" role="tabpanel">
@@ -299,7 +308,6 @@
                         </div>
                     </div>
 
-
                     <div class="form-inline">
                         <div class="position-relative pl-3">
                             <asp:TextBox ID="txtBonus" runat="server" Width="100 px" CssClass="form-control"></asp:TextBox>
@@ -316,51 +324,66 @@
                                     <HeaderTemplate>
                                         <table class="table table-responsive table-sm Tabella2RigheAlternate mt-1">
                                     </HeaderTemplate>
-
                                     <ItemTemplate>
                                         <tr>
                                             <td colspan="2" style="width: 60%">
                                                 <%# DataBinder.Eval(Container.DataItem, "Cliente") %> 
                                             </td>
-
                                             <td style="width: 20%">
                                                 <%# DataBinder.Eval(Container.DataItem, "Bonus") %> 
                                             </td>
-                                            
                                         </tr>
                                         <tr>
-                                            <td><small>
-                                                <%# DataBinder.Eval(Container.DataItem, "Da") %></small>
+                                            <td>
+                                                <small><%# DataBinder.Eval(Container.DataItem, "Da") %></small>
                                             </td>
-
-                                            <td><small>
-                                                <%# DataBinder.Eval(Container.DataItem, "A") %> 
-                                            </td></small>
+                                            <td>
+                                                <small><%# DataBinder.Eval(Container.DataItem, "A") %></small>
+                                            </td>
                                          <td>
-                                            <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' CssClass="btn btn-danger" Text="X" /></td>   
+                                            <asp:LinkButton runat="server" CommandName="Delete" CommandArgument='<%# Eval("ID") %>' CssClass="btn btn-danger" Text="X" />
+                                         </td>   
                                         </tr>
-                                       
-
-
                                     </ItemTemplate>
 
                                     <FooterTemplate>
                                         </table>
                                     </FooterTemplate>
                                 </asp:Repeater>
-                            
-
-                              
-
                         </ContentTemplate>
                             <Triggers>
                                  <asp:AsyncPostBackTrigger ControlID="RepBonus" />
                             </Triggers>
                         </asp:UpdatePanel>
+                    </div>
 
+                </div>
+                <div class="tab-pane" id="kpi-tab">
+                     <div class="form-group px-3">
+                        <asp:Repeater ID="RepKPI" runat="server">
+                            <HeaderTemplate>
+                                <h6>KPI ORDINATO</h6>
+                                <table class="table table-responsive Tabella2RigheAlternate  mt-1">
+                            </HeaderTemplate>
+                            <ItemTemplate>
+                                <tr>
+                                    <td colspan="2"><%# DataBinder.Eval(Container.DataItem, "Operatore") %></td>
+                                </tr>
+                                    <td><%# DataBinder.Eval(Container.DataItem, "Preventivato", "{0:c}") %> </td>
+                                    <td><%# DataBinder.Eval(Container.DataItem, "NumPreventivi") %></td>
+                                </tr>
+                               
+                            </ItemTemplate>
+
+                            <FooterTemplate>
+                                </table>
+                            </FooterTemplate>
+                        </asp:Repeater>
 
                     </div>
+
                 </div>
+
             </div>
         </div>
 

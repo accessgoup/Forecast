@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Dashboard
+Partial Public Class Settings
 
     '''<summary>
     '''Controllo form1.
@@ -23,29 +23,11 @@ Partial Public Class Dashboard
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''Controllo Chart1.
+    '''Controllo GridParameters.
     '''</summary>
     '''<remarks>
     '''Campo generato automaticamente.
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
-    Protected WithEvents Chart1 As Global.System.Web.UI.DataVisualization.Charting.Chart
-
-    '''<summary>
-    '''Controllo hfdata.
-    '''</summary>
-    '''<remarks>
-    '''Campo generato automaticamente.
-    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-    '''</remarks>
-    Protected WithEvents hfdata As Global.System.Web.UI.WebControls.HiddenField
-
-    '''<summary>
-    '''Controllo hflabel.
-    '''</summary>
-    '''<remarks>
-    '''Campo generato automaticamente.
-    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-    '''</remarks>
-    Protected WithEvents hflabel As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents GridParameters As Global.System.Web.UI.WebControls.GridView
 End Class

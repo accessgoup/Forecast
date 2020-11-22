@@ -1,11 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <Parameters>
-    <Inizio>01/01/2020</Inizio>
-    <Fine>01/01/2020</Fine>
-    <MaxValoreRank>500</MaxValoreRank>
-    <ValoreStepIncremento>100</ValoreStepIncremento>
-    <MaxAgenteRank>500</MaxAgenteRank>
-    <AgenteStepIncremento>100</AgenteStepIncremento>
+  <Parameter>
+    <name>INIZIO</name>
+    <info>01/01/2020</info>
+  </Parameter>
+  <Parameter>
+    <name>FINE</name>
+    <info>31/12/2020</info>
+  </Parameter>
+  <Parameter>
+    <name>MASSIMO VALORE RANK</name>
+    <info>500</info>
+  </Parameter>
+  <Parameter>
+    <name>STEP VALORE RANK</name>
+    <info>100</info>
+  </Parameter>
+  <Parameter>
+    <name>MAX AGENTE RANK</name>
+    <info>500</info>
+  </Parameter>
+  <Parameter>
+    <name>STEP VALORE AGENTE</name>
+    <info>50</info>
+  </Parameter>
+  
 </Parameters>
 

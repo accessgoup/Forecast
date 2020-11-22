@@ -158,6 +158,15 @@ Partial Public Class Ordini
     Protected WithEvents txtFilter As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''Controllo txtLimitRows.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents txtLimitRows As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''Controllo btnExec.
     '''</summary>
     '''<remarks>
@@ -165,6 +174,15 @@ Partial Public Class Ordini
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
     Protected WithEvents btnExec As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''Controllo btnUpdateSP.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents btnUpdateSP As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Controllo ddCustomerList.
@@ -237,4 +255,13 @@ Partial Public Class Ordini
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
     Protected WithEvents RepBonus As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''Controllo RepKPI.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents RepKPI As Global.System.Web.UI.WebControls.Repeater
 End Class
