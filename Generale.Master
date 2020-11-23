@@ -30,19 +30,19 @@
         <div id="wrapper">
     <div class="navbar-custom">
                 <div class="container-fluid">
-    
+
                     <ul class="list-unstyled topnav-menu float-right mb-0">
                         <li class="dropdown notification-list">
                             <a href="javascript:void(0);" class="nav-link right-bar-toggle waves-effect waves-light">
                                 <i class="fe-settings noti-icon"></i>
                             </a>
                         </li>
-    
+
                     </ul>
 
                     <!-- LOGO -->
                     <div class="logo-box">
-                       
+
 
                         <a href="Ordini.aspx" class="logo logo-light text-center">
                             <span class="logo-sm">
@@ -53,16 +53,18 @@
                             </span>
                         </a>
                     </div>
-    
+
                     <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
                         <li>
                             <button class="button-menu-mobile waves-effect waves-light">
                                 <i class="fe-menu"></i>
                             </button>
                         </li>
+                         <asp:ContentPlaceHolder ID="ContentPlaceHolderTopMenu" runat="server">
+                        </asp:ContentPlaceHolder>
 
-                       
                     </ul>
+
                     <div class="clearfix"></div>
                 </div>
             </div>

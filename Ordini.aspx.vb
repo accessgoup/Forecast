@@ -4,6 +4,7 @@
 Public Class Ordini
     Inherits System.Web.UI.Page
     Dim ds As New DataSet()
+    Dim bGrid As Boolean
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim request = Me.Request
@@ -19,6 +20,8 @@ Public Class Ordini
             LoadKPI()
         End If
         ListCustomerBonus()
+        bGrid = False
+
     End Sub
 
     Sub SetParameters()
@@ -143,7 +146,7 @@ Public Class Ordini
 
             With Me.RepKPI
                 If dt.Rows.Count > 0 Then
-                    Dim s As Object
+
                     Me.RepKPI.DataSource = dt
                     Me.RepKPI.DataBind()
                 Else
@@ -152,7 +155,9 @@ Public Class Ordini
             End With
 
         Catch ex As Exception
-            MsgBox(ex.Message.ToString)
+            strerror = ex.Message.ToString
+            Response.Redirect("Oops.aspx")
+            'MsgBox(ex.Message.ToString)
             'Response.Write("Oops!! following error occured: " + ex.Message.ToString)
         Finally
             ds.Clear()
@@ -203,14 +208,14 @@ Public Class Ordini
 
         GetConn("cs")
 
-        cmd = New SqlCommand("SELECT PeopleID ID,Custom06 Bonus, cf.Cd_CF, cf.Descrizione As Cliente,  convert(varchar, Custom07, 3) Da,  convert(varchar, Custom08, 3)  A FROM [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] Pf INNER JOIN [PDB_FITAVATRADING].[dbo].[People] P ON pf.PeopleID=p.ID INNER JOIN ADB_FITAVATRADING.dbo.cf ON p.Code = cf.Cd_CF WHERE Custom06<>'' ORDER BY Descrizione", cn)
+        cmd = New SqlCommand("SELECT PeopleID ID,Custom06 Bonus, cf.Cd_CF, cf.Descrizione As Cliente,  convert(varchar, Custom07, 3) Da,  convert(varchar, Custom08, 3)  A FROM [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] Pf INNER JOIN [PDB_FITAVATRADING].[dbo].[People] P ON pf.PeopleID=p.ID INNER JOIN ADB_FITAVATRADING.dbo.cf ON p.Code = cf.Cd_CF WHERE Custom06<>'' ORDER BY CONVERT(int, Custom06) DESC", cn)
 
         adp.SelectCommand = cmd
         adp.Fill(dt)
         cn.Close()
         If dt.Tables(0).Rows.Count > 0 Then
-            Me.RepBonus.DataSource = dt
-            Me.RepBonus.DataBind()
+            Me.GridClienti.DataSource = dt
+            Me.GridClienti.DataBind()
         End If
     End Sub
 
@@ -222,19 +227,19 @@ Public Class Ordini
         LoadData(0)
     End Sub
 
-    Private Sub RepBonus_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles RepBonus.ItemCommand
-        If e.CommandName = "Delete" Then
+    'Private Sub RepBonus_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles RepBonus.ItemCommand
+    '    If e.CommandName = "Delete" Then
 
-            GetConn("p")
+    '        GetConn("p")
 
-            cmd = New SqlCommand("UPDATE [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] SET Custom06='' WHERE Peopleid=@id", cn)
-            cmd.Parameters.AddWithValue("id", e.CommandArgument)
-            cmd.ExecuteNonQuery()
-            RepBonus.DataBind()
-            'ListCustomerBonus()
+    '        cmd = New SqlCommand("UPDATE [PDB_FITAVATRADING].[dbo].[PeopleCustomFields] SET Custom06='' WHERE Peopleid=@id", cn)
+    '        cmd.Parameters.AddWithValue("id", e.CommandArgument)
+    '        cmd.ExecuteNonQuery()
+    '        RepBonus.DataBind()
+    '        'ListCustomerBonus()
 
-        End If
-    End Sub
+    '    End If
+    'End Sub
 
     Protected Sub btnUpdate_Click(sender As Object, e As EventArgs)
         If Me.txtBonus.Text <> "" And Me.ddCustomerList.SelectedItem.Value <> "" Then
@@ -254,13 +259,22 @@ Public Class Ordini
         End If
     End Sub
 
-    Private Sub GridOrdini_Sorting(sender As Object, e As GridViewSortEventArgs) Handles GridOrdini.Sorting
 
-    End Sub
 
     Protected Sub TaskGridView_Sorting(ByVal sender As Object, ByVal e As GridViewSortEventArgs)
         Session("TaskTable") = e.SortExpression
         LoadData(0)
     End Sub
 
+
+    Sub ShowGrid(sender As Object, e As EventArgs) Handles btnShowClienti.Click, btnExec.Click
+        bGrid = (sender.id = "btnExec")
+        Me.GridOrdini.Visible = bGrid
+        Me.GridClienti.Visible = Not bGrid
+    End Sub
+
+    Private Sub GridClienti_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles GridClienti.PageIndexChanging
+        GridClienti.PageIndex = e.NewPageIndex
+        ListCustomerBonus()
+    End Sub
 End Class

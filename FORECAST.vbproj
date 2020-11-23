@@ -1650,6 +1650,7 @@
     <Content Include="Dashboard.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Index.aspx" />
+    <Content Include="Oops.aspx" />
     <Content Include="Ordini.aspx" />
     <Content Include="Settings.aspx" />
     <Content Include="Web.config" />
@@ -1698,6 +1699,13 @@
     <Compile Include="Generale.Master.vb">
       <DependentUpon>Generale.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Oops.aspx.designer.vb">
+      <DependentUpon>Oops.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Oops.aspx.vb">
+      <DependentUpon>Oops.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Ordini.aspx.designer.vb">
       <DependentUpon>Ordini.aspx</DependentUpon>

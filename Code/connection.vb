@@ -1,9 +1,13 @@
 ﻿Imports System.Data
 Imports System.Data.SqlClient
 Imports System.Configuration.ConfigurationManager
+
 Module connection
     Public cn As SqlConnection
     Public cmd As SqlCommand
+
+    Public strerror As String
+
     Sub GetConn(strCn As String)
         Dim strSQL As String
         cn = New SqlConnection

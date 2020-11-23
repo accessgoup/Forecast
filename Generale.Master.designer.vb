@@ -32,6 +32,15 @@ Partial Public Class Site1
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
+    '''Controllo ContentPlaceHolderTopMenu.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents ContentPlaceHolderTopMenu As Global.System.Web.UI.WebControls.ContentPlaceHolder
+
+    '''<summary>
     '''Controllo ContentPlaceHolder1.
     '''</summary>
     '''<remarks>

@@ -8,7 +8,15 @@
     </style>
     
 </asp:Content>
+
+<asp:Content ID="TopMenu" ContentPlaceHolderID="ContentPlaceHolderTopMenu" runat="server">
+    
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+
 
     <div class="content-page">
         <div class="content">
@@ -207,6 +215,39 @@
                             </div>
 
 
+                                <div class="table table-responsive table-sm">
+                                <asp:GridView ID="GridClienti" Visible="false" runat="server" AutoGenerateColumns="False" AllowSorting ="true"
+                                    AllowPaging="True" AutoSizeColumnsMode="false" 
+                                    OnSorting="TaskGridView_Sorting" OnPageIndexChanging="GridOrdini_PageIndexChanging"
+                                    CssClass="table table-centered table-nowrap mb-0"  >
+
+
+                                    <PagerStyle CssClass="pagination-ys" />
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Bonus" SortExpression="Bonus">
+                                            <ItemTemplate><small><%#Eval("Bonus") %></small></ItemTemplate>
+                                            <ItemStyle Width="10 px" CssClass="bg-primary" ForeColor="White" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="Cliente" SortExpression="Cliente" >
+                                            <ItemTemplate><small><%#Eval("Cliente") %></small></ItemTemplate>
+                                            <ItemStyle Width="10 px" />
+                                        </asp:TemplateField>
+                                         
+                                        <asp:TemplateField HeaderText="Da" SortExpression="Da">
+                                            <ItemTemplate><small><%#Eval("A") %></small></ItemTemplate>
+                                            <ItemStyle Width="10px" />
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="A">
+                                            <ItemTemplate><small><%#Eval("A") %></small></ItemTemplate>
+                                            <ItemStyle Width="10px" />
+                                        </asp:TemplateField>
+                                       
+                                    </Columns>
+
+                                </asp:GridView>
+                            </div>
+
+
 
                         </div>
                     </div>
@@ -293,6 +334,9 @@
                 </div>
                 <div class="tab-pane" id="bonus-tab" role="tabpanel">
                     <div class="form-group px-3">
+                         <div class="m-1">
+                            <asp:Button ID="btnShowClienti" runat="server" CssClass="pl-3 btn btn-primary" Text="MOSTR ABONUS CLIENTI" />
+                        </div>
                         <div class="position-relative">
                             <h6 class="font-weight-medium px-3 mt-2 text-uppercase">BONUS CLIENTI</h6>
                             <asp:DropDownList ID="ddCustomerList" CssClass="form-control" runat="server">
@@ -309,15 +353,16 @@
                     </div>
 
                     <div class="form-inline">
-                        <div class="position-relative pl-3">
-                            <asp:TextBox ID="txtBonus" runat="server" Width="100 px" CssClass="form-control"></asp:TextBox>
+                        <div class="pl-3">
+                            <asp:TextBox ID="txtBonus" Width="30px" runat="server" CssClass="form-control"></asp:TextBox>
                         </div>
-                        <div class="position-relative pl-3">
+                        <div class="mt-1">
                             <asp:Button ID="btnUpdate" runat="server" OnClick="btnUpdate_Click" CssClass="btn btn-primary" Text="ASSEGNA" />
                         </div>
+                       
                     </div>
-                    <div class="form-group px-3">
-                        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                    <div class="form-group px-3 m-1">
+                      <%--  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
                         <asp:UpdatePanel ID="upFC" runat="server" UpdateMode="Always" ChildrenAsTriggers="true">
                             <ContentTemplate>
                                 <asp:Repeater ID="RepBonus" runat="server">
@@ -354,7 +399,7 @@
                             <Triggers>
                                  <asp:AsyncPostBackTrigger ControlID="RepBonus" />
                             </Triggers>
-                        </asp:UpdatePanel>
+                        </asp:UpdatePanel>--%>
                     </div>
 
                 </div>

@@ -95,6 +95,15 @@ Partial Public Class Ordini
     Protected WithEvents GridOrdini As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
+    '''Controllo GridClienti.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents GridClienti As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
     '''Controllo Inizio.
     '''</summary>
     '''<remarks>
@@ -185,6 +194,15 @@ Partial Public Class Ordini
     Protected WithEvents btnUpdateSP As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''Controllo btnShowClienti.
+    '''</summary>
+    '''<remarks>
+    '''Campo generato automaticamente.
+    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+    '''</remarks>
+    Protected WithEvents btnShowClienti As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Controllo ddCustomerList.
     '''</summary>
     '''<remarks>
@@ -228,33 +246,6 @@ Partial Public Class Ordini
     '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
     '''</remarks>
     Protected WithEvents btnUpdate As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''Controllo ScriptManager1.
-    '''</summary>
-    '''<remarks>
-    '''Campo generato automaticamente.
-    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-    '''</remarks>
-    Protected WithEvents ScriptManager1 As Global.System.Web.UI.ScriptManager
-
-    '''<summary>
-    '''Controllo upFC.
-    '''</summary>
-    '''<remarks>
-    '''Campo generato automaticamente.
-    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-    '''</remarks>
-    Protected WithEvents upFC As Global.System.Web.UI.UpdatePanel
-
-    '''<summary>
-    '''Controllo RepBonus.
-    '''</summary>
-    '''<remarks>
-    '''Campo generato automaticamente.
-    '''Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-    '''</remarks>
-    Protected WithEvents RepBonus As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''Controllo RepKPI.
